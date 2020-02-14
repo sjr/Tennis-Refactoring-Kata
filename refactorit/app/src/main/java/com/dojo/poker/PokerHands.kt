@@ -20,12 +20,12 @@ class PokerHands {
 
     private fun checkPair(playerAValues: List<Card>, playerBValues: List<Card>): String? {
 
-        val pairCountA = getPair(playerAValues)
-        val pairCountB = getPair(playerBValues)
+        val aHasPair = hasPair(playerAValues)
+        val bHasPair = hasPair(playerBValues)
 
-        if (pairCountA == 2) {
+        if (aHasPair) {
             return "Player A Wins"
-        } else if (pairCountB == 2) {
+        } else if (bHasPair) {
             return "Player B Wins"
         }
         return null
@@ -44,12 +44,16 @@ class PokerHands {
         return "Tie"
     }
 
-    fun getPair(cards: List<Card>): Int {
-        var i = 0
-        while (i < 5) {
-            cards.count { it.value == cards[i].value }
-            i++
+    fun hasPair(cards: List<Card>): Boolean {
+        for(card in cards) {
+            if(countDuplicates(cards, card.value) == 2) {
+                return true
+            }
         }
-        return 0
+        return false
+    }
+
+    fun countDuplicates(cards: List<Card>, value: Int): Int {
+        return cards.count { it.value == value }
     }
 }
