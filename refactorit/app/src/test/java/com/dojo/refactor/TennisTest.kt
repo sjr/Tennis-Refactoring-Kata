@@ -5,7 +5,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import org.junit.runners.Parameterized.Parameters
-import java.util.*
+import kotlin.math.max
 
 @RunWith(Parameterized::class)
 class TennisTest(
@@ -15,12 +15,12 @@ class TennisTest(
 ) {
 
     companion object {
-
-        val allScores: Collection<Array<Any>>
+        @Suppress("unused")
+        val allScores
             @JvmStatic
             @Parameters
             get() =
-                Arrays.asList(
+                listOf(
                     arrayOf(0, 0, "Love-All"),
                     arrayOf(1, 1, "Fifteen-All"),
                     arrayOf(2, 2, "Thirty-All"),
@@ -57,8 +57,8 @@ class TennisTest(
                 )
     }
 
-    fun checkAllScores(game: TennisGame) {
-        val highestScore = Math.max(this.player1Score, this.player2Score)
+    private fun checkAllScores(game: TennisGame) {
+        val highestScore = max(this.player1Score, this.player2Score)
         for (i in 0 until highestScore) {
             if (i < this.player1Score)
                 game.wonPoint("player1")
@@ -84,5 +84,15 @@ class TennisTest(
     fun checkAllScoresTennisGame3() {
         val game = TennisGame3("player1", "player2")
         checkAllScores(game)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun checkPlayerNamesAreDifferent1() {
+        TennisGame1("player1", "player1")
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun checkPlayerNamesAreDifferent2() {
+        TennisGame2("player1", "player1")
     }
 }

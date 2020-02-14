@@ -1,117 +1,56 @@
 package com.dojo.refactor
 
-class TennisGame2(private val player1Name: String, private val player2Name: String) : TennisGame {
-    var P1point: Int = 0
-    var P2point: Int = 0
+class TennisGame2(player1Name: String, player2Name: String) : TennisGame {
+    private var playerOneScore: Int = 0
+    private var playerTwoScore: Int = 0
 
-    var P1res: String = ""
-    var P2res: String = ""
+    init {
+        require(player1Name != player2Name)
+        require(player1Name.isNotEmpty() && player2Name.isNotEmpty())
+    }
 
     override fun getScore(): String {
         var score = ""
-        if (P1point == P2point && P1point < 4) {
-            if (P1point == 0)
-                score = "Love"
-            if (P1point == 1)
-                score = "Fifteen"
-            if (P1point == 2)
-                score = "Thirty"
-            score += "-All"
-        }
-        if (P1point == P2point && P1point >= 3)
-            score = "Deuce"
 
-        if (P1point > 0 && P2point == 0) {
-            if (P1point == 1)
-                P1res = "Fifteen"
-            if (P1point == 2)
-                P1res = "Thirty"
-            if (P1point == 3)
-                P1res = "Forty"
+        if (playerOneScore == playerTwoScore) {
+            score = if (playerOneScore >= 3) {
+                "Deuce"
+            } else {
+                getScoreText(playerOneScore) + "-All"
+            }
+        } else if (playerOneScore < 4 && playerTwoScore < 4) {
+            score = "${getScoreText(playerOneScore)}-${getScoreText(playerTwoScore)}"
+        } else {
+            if (playerTwoScore in 3 until playerOneScore) {
+                score = "Advantage player1"
+            } else if (playerOneScore in 3 until playerTwoScore) {
+                score = "Advantage player2"
+            }
 
-            P2res = "Love"
-            score = "$P1res-$P2res"
-        }
-        if (P2point > 0 && P1point == 0) {
-            if (P2point == 1)
-                P2res = "Fifteen"
-            if (P2point == 2)
-                P2res = "Thirty"
-            if (P2point == 3)
-                P2res = "Forty"
-
-            P1res = "Love"
-            score = "$P1res-$P2res"
-        }
-
-        if (P1point > P2point && P1point < 4) {
-            if (P1point == 2)
-                P1res = "Thirty"
-            if (P1point == 3)
-                P1res = "Forty"
-            if (P2point == 1)
-                P2res = "Fifteen"
-            if (P2point == 2)
-                P2res = "Thirty"
-            score = "$P1res-$P2res"
-        }
-        if (P2point > P1point && P2point < 4) {
-            if (P2point == 2)
-                P2res = "Thirty"
-            if (P2point == 3)
-                P2res = "Forty"
-            if (P1point == 1)
-                P1res = "Fifteen"
-            if (P1point == 2)
-                P1res = "Thirty"
-            score = "$P1res-$P2res"
-        }
-
-        if (P1point > P2point && P2point >= 3) {
-            score = "Advantage player1"
-        }
-
-        if (P2point > P1point && P1point >= 3) {
-            score = "Advantage player2"
-        }
-
-        if (P1point >= 4 && P2point >= 0 && P1point - P2point >= 2) {
-            score = "Win for player1"
-        }
-        if (P2point >= 4 && P1point >= 0 && P2point - P1point >= 2) {
-            score = "Win for player2"
+            if (playerOneScore >= 4 && playerTwoScore >= 0 && playerOneScore - playerTwoScore >= 2) {
+                score = "Win for player1"
+            }
+            if (playerTwoScore >= 4 && playerOneScore >= 0 && playerTwoScore - playerOneScore >= 2) {
+                score = "Win for player2"
+            }
         }
         return score
     }
 
-    fun SetP1Score(number: Int) {
-
-        for (i in 0 until number) {
-            P1Score()
+    private fun getScoreText(score: Int): String {
+        return when (score) {
+            0 -> "Love"
+            1 -> "Fifteen"
+            2 -> "Thirty"
+            3 -> "Forty"
+            else -> ""
         }
-
     }
 
-    fun SetP2Score(number: Int) {
-
-        for (i in 0 until number) {
-            P2Score()
-        }
-
-    }
-
-    fun P1Score() {
-        P1point++
-    }
-
-    fun P2Score() {
-        P2point++
-    }
-
-    override fun wonPoint(player: String) {
-        if (player === "player1")
-            P1Score()
+    override fun wonPoint(playerName: String) {
+        if (playerName === "player1")
+            playerOneScore++
         else
-            P2Score()
+            playerTwoScore++
     }
 }
