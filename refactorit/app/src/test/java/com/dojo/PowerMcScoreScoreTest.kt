@@ -40,6 +40,24 @@ class PokerHandsTest {
             "Player B Wins",
             listOf(Card(2, 1), Card(3, 1), Card(4, 1), Card(5, 2), Card(10, 1)),
             listOf(Card(7, 1), Card(8, 1), Card(9, 1), Card(10, 2), Card(12, 1))
+        ),
+        arrayOf(
+            "Both players have same value cards",
+            "Tie",
+            listOf(Card(2, 1), Card(3, 1), Card(4, 1), Card(5, 2), Card(10, 1)),
+            listOf(Card(2, 2), Card(3, 2), Card(4, 2), Card(5, 1), Card(10, 2))
+        ),
+        arrayOf(
+            "Player A have Pair and Player B doesn't",
+            "Player A Wins",
+            listOf(Card(2, 1), Card(2, 3), Card(4, 1), Card(5, 2), Card(10, 1)),
+            listOf(Card(2, 2), Card(3, 2), Card(4, 2), Card(5, 1), Card(10, 2))
+        ),
+        arrayOf(
+            "Player B have Pair and Player A doesn't",
+            "Player B Wins",
+            listOf(Card(2, 1), Card(3, 3), Card(4, 1), Card(5, 2), Card(10, 1)),
+            listOf(Card(2, 2), Card(2, 3), Card(4, 2), Card(5, 1), Card(10, 2))
         )
     )
 }
