@@ -23,12 +23,20 @@ class PokerHands {
         val aHasPair = hasPair(playerAValues)
         val bHasPair = hasPair(playerBValues)
 
-        if (aHasPair) {
-            return "Player A Wins"
-        } else if (bHasPair) {
-            return "Player B Wins"
+        return when {
+            aHasPair && bHasPair -> {
+                if (getPairValue(playerAValues) > getPairValue(playerBValues)) {
+                    "Player A Wins"
+                } else "Player B Wins"
+            }
+            aHasPair -> {
+                "Player A Wins"
+            }
+            bHasPair -> {
+                "Player B Wins"
+            }
+            else -> null
         }
-        return null
     }
 
     private fun checkValue(playerAValues: List<Card>, playerBValues: List<Card>): String {
@@ -42,6 +50,15 @@ class PokerHands {
             i++
         }
         return "Tie"
+    }
+
+    fun getPairValue(cards: List<Card>): Int {
+        for(card in cards) {
+            if(countDuplicates(cards, card.value) == 2) {
+                return card.value
+            }
+        }
+        return 0
     }
 
     fun hasPair(cards: List<Card>): Boolean {

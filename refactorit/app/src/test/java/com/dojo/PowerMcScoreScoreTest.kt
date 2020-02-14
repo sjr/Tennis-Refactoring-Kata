@@ -63,7 +63,19 @@ class PokerHandsTest {
             "Player A and B both have a pair, B's is higher",
             "Player B Wins",
             listOf(Card(2, 2), Card(2, 3), Card(4, 2), Card(5, 1), Card(10, 2)),
-            listOf(Card(2, 1), Card(3, 3), Card(5, 1), Card(5, 3), Card(10, 1)))
+            listOf(Card(2, 1), Card(3, 3), Card(5, 1), Card(5, 3), Card(10, 1))
+        ),
+        arrayOf(
+            "Player A and B both have a pair, A's is higher",
+            "Player A Wins",
+            listOf(Card(2, 1), Card(3, 3), Card(5, 1), Card(5, 3), Card(10, 1)),
+            listOf(Card(2, 2), Card(2, 3), Card(4, 2), Card(5, 1), Card(10, 2))
+        ),
+        arrayOf(
+            "Player A and B both have same value  pair, A's is higher",
+            "Player A Wins",
+            listOf(Card(2, 1), Card(3, 3), Card(5, 1), Card(5, 3), Card(10, 1)),
+            listOf(Card(2, 2), Card(2, 3), Card(4, 2), Card(5, 1), Card(10, 2))
         )
     )
 }
