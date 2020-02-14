@@ -1,5 +1,6 @@
 package com.dojo
 
+import com.dojo.poker.Card
 import com.dojo.poker.PokerHands
 import junitparams.JUnitParamsRunner
 import junitparams.Parameters
@@ -17,8 +18,8 @@ class PokerHandsTest {
     fun `test my input`(
         message: String,
         expected: String,
-        playerAValues: List<Int>,
-        playerBValues: List<Int>
+        playerAValues: List<Card>,
+        playerBValues: List<Card>
     ) {
         val pokerHands = PokerHands()
         val actualResult = pokerHands.getWinner(playerAValues, playerBValues)
@@ -31,8 +32,14 @@ class PokerHandsTest {
         arrayOf(
             "High card with player A",
             "Player A Wins",
-            listOf(2, 3, 4, 5, 13),
-            listOf(7, 8, 9, 10, 12)
+            listOf(Card(2, 1), Card(3, 1), Card(4, 1), Card(5, 2), Card(13, 1)),
+            listOf(Card(7, 1), Card(8, 1), Card(9, 1), Card(10, 2), Card(12, 1))
+        ),
+        arrayOf(
+            "High card with player B",
+            "Player B Wins",
+            listOf(Card(2, 1), Card(3, 1), Card(4, 1), Card(5, 2), Card(10, 1)),
+            listOf(Card(7, 1), Card(8, 1), Card(9, 1), Card(10, 2), Card(12, 1))
         )
     )
 }

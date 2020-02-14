@@ -1,13 +1,21 @@
 package com.dojo.poker
 
 
-class Card(value: Int, suit: Int)
+class Card(val value: Int, val suit: Int)
 
 
 class PokerHands {
 
-    // TODO List<Int> cant support value + suit
-    fun getWinner(playerAValues: List<Int>, playerBValues: List<Int>) : String {
+    fun getWinner(playerAValues: List<Card>, playerBValues: List<Card>) : String {
+        val playerASortedValues = playerAValues.sortedByDescending { a, b ->
+            a.value - b.value
+        }
+
+
+        return checkValue(playerAValues, playerBValues) //checkTriple()?:checkPair()?:checkValue()
+    }
+
+    fun checkValue(playerAValues: List<Card>, playerBValues: List<Card>): String {
         return "Player A Wins"
     }
 }
